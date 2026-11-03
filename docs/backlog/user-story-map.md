@@ -1,5 +1,8 @@
 # 用户故事地图 CampusOverflow
 > Lab2 Sprint1，A角色主执笔，全员参与讨论
+
+可审阅导出：[PNG](assets/user-story-map-v1.png) / [PDF](assets/user-story-map-v1.pdf)。导出基于本文件 `main@12eef8a`，不是看板截图或现场研讨照片。
+
 整体用户主线：未注册用户 → 注册 → 浏览内容 → 提问 → 回答问题 → 互动投票采纳 → 成长获取声誉
 
 ## 顶层用户活动（横轴）
