@@ -30,11 +30,15 @@ if ($IncludeDiscoveryMySql) {
     $missing = @($required | Where-Object { [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($_)) })
     if ($missing.Count) { throw "Discovery MySQL IT 缺少环境变量名称：$($missing -join ', ')" }
     Invoke-Step 'Discovery MySQL IT（必须 2 项且 0 跳过）' {
-        mvn -B -f backend/pom.xml -pl co-discovery/co-discovery-infrastructure -am test -Dtest=DiscoveryMySqlIT -Dsurefire.failIfNoSpecifiedTests=false
-    } 'mvn ... -Dtest=DiscoveryMySqlIT（凭据不打印）'
+        mvn -B -f backend/pom.xml -pl co-discovery/co-discovery-infrastructure -am verify -Dit.test=DiscoveryMySqlIT -Dfailsafe.failIfNoSpecifiedTests=false
+    } 'mvn ... verify -Dit.test=DiscoveryMySqlIT（凭据不打印，必须核对 2 项且 0 跳过）'
 }
 
 if ($IncludeFullFlow) {
+    $flowTests = @(Get-ChildItem (Join-Path $repo 'backend') -Recurse -Filter 'CampusOverflowFlowIT.java' -File)
+    if ($flowTests.Count -eq 0) {
+        throw '仓库中不存在 CampusOverflowFlowIT.java；不能把无测试执行写成完整业务流通过。'
+    }
     Invoke-Step 'Testcontainers 完整业务流' {
         mvn -B -f backend/pom.xml -pl co-bootstrap -am verify -Dit.test=CampusOverflowFlowIT -DfailIfNoTests=false
     } 'mvn ... -Dit.test=CampusOverflowFlowIT'

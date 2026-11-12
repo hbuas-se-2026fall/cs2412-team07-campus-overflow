@@ -1,15 +1,17 @@
 # CampusOverflow 交付证据索引
 
-更新时间：2026-11-03。唯一交付仓库为老师仓库。本索引只登记可追溯证据；配置存在、计划命令和历史验证不能互相替代。
+更新时间：2026-11-12。唯一交付仓库为老师仓库。本索引只登记可追溯证据；配置存在、计划命令和历史验证不能互相替代。
+
+课程 Lab1～Lab8 的状态、缺项和负责人以 `docs/c/交付材料清单.md` 为准；本文只索引已存在证据和本 PR 新增的可执行资产，不复制课程状态矩阵。
 
 ## 已存在的真实证据
 
 | 范围 | 证据 | 能证明什么 | 不能证明什么 |
 | --- | --- | --- | --- |
-| C 浏览器验证 | `stage9/frontend/01-login.png` 至 `05-unread-count-restored.png` | 真实后端下的登录、中文搜索、通知列表、单条已读和顶部未读数恢复 | 不证明提问、回答、采纳、声誉和完整 E2E |
+| C 浏览器验证 | `stage9/frontend/01-login.png` 至 `05-unread-count-restored.png`，证据提交 `a9e29dd`，已包含在 `main@12eef8a` | 真实后端下的登录、中文搜索、通知列表、单条已读和顶部未读数 `0→1→0` | 不证明提问、回答、采纳、声誉和完整 E2E |
 | C 环境核验 | `stage9/environment/环境核验.md` | 当时执行环境的 Java、Node、Docker 等状态 | 不代表 2026-11-03 当前服务仍在运行 |
 | CI 失败归因 | `stage9/actions/PR状态与失败摘要.md`、老师仓库 PR #2/#3 Actions | Actions 能触发；前端构建成功；Identity application 测试失败 | 不代表后端、镜像或部署通过 |
-| Discovery 实现记录 | `docs/c/阶段2-*`、`阶段3-*`、`阶段9-*` | C 模块规则、模块测试、显式 MySQL IT 和局部联调过程 | 不代表 Q&A/Reputation 已完成 |
+| Discovery 实现记录 | `docs/c/阶段2-*`、`阶段3-*`、`阶段9-*`；模块证据 `d600edf`，MySQL IT `ed90b17` + `0beaa78`，最终分支 `572a567` | C 模块规则、domain 13/13、application 17/17、ArchUnit 1/1、显式测试库下 MySQL IT 2/2 且 0 跳过 | MySQL IT 直接构造上游事件，不代表 Q&A/Reputation 或完整 E2E 已完成 |
 | 故事地图导出 | `docs/backlog/assets/user-story-map-v1.{png,pdf}` | 从当前 Markdown 生成的可评审故事地图 | 不是看板截图或现场研讨照片 |
 | Context Map 导出 | `docs/ddd/assets/context-map-v1.{png,pdf}` | 从当前 Markdown 生成的限界上下文关系图 | 不是事件风暴现场截图 |
 
@@ -27,5 +29,7 @@
 | Prometheus/Grafana | `scripts/final/verify-observability.ps1` | 尚无已验证告警规则和真实流量 Dashboard |
 | 本地压测 | `scripts/final/run-local-load.ps1` | 需要可运行且数据隔离的最终应用 |
 | 演示录屏 | `scripts/final/demo-readiness.ps1` 后人工录屏 | 完整业务链路未就绪；脚本不伪造视频 |
+
+上述脚本的参数、前置条件、证据边界和建议执行顺序见 `scripts/final/README.md`。
 
 所有新增运行证据应记录提交 SHA、执行时间、执行机器、命令、退出码和结果摘要；密码、Cookie、令牌及本地绝对凭据不得入库。
